@@ -38,21 +38,21 @@
 ## Sprint 1 Backlog
 
 ### Project Setup
-- [ ] Create a C#.NET project.
-- [ ] Configure the project for a Linux setup.
-- [ ] Integrate the SSL certificate.
+- [x] Create a C#.NET project.
+- [x] Configure the project for a Linux setup.
+- [x] Integrate the SSL certificate.
 
 ### Core Functionality Development
-- [ ] Implement user registration.
-- [ ] Implement user login.
-- [ ] Implement functionality to create a text file on the server.
+- [x] Implement user registration.
+- [x] Implement user login.
+- [x] Implement functionality to create a text file on the server.
 
 ### Security Measures
-- [ ] Implement strong password requirements.
-- [ ] Secure database storage of user information.
-- [ ] Implement two-factor authentication.
+- [x] Implement strong password requirements.
+- [x] Secure database storage of user information.
+- [x] Implement two-factor authentication.
 
 ### Testing
-- [ ] Develop unit tests for core functionalities.
-- [ ] Perform cross-platform compatibility tests.
-- [ ] Test the application's security.
+- [x] Develop unit tests for core functionalities.
+- [x] Perform cross-platform compatibility tests.
+- [x] Test the application's security.
