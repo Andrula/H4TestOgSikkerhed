@@ -46,6 +46,7 @@
 - [x] Implement user registration.
 - [x] Implement user login.
 - [x] Implement functionality to create a text file on the server.
+- [ ] Implement Simple file creation in the server.
 
 ### Security Measures
 - [x] Implement strong password requirements.
