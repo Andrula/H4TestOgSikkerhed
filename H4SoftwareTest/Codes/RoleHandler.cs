@@ -21,6 +21,15 @@ public class RoleHandler
             }
 
             ApplicationUser identityUser = await userManager.FindByEmailAsync(user);
+
+            // Fjerner brugeren fra alle roller
+            var currentRoles = await userManager.GetRolesAsync(identityUser);
+            if (currentRoles.Count > 0)
+            {
+                await userManager.RemoveFromRolesAsync(identityUser, currentRoles);
+            }
+
+            // Tilføjer brugeren til ny rolle
             await userManager.AddToRoleAsync(identityUser, role);
 
             isCreated = true;

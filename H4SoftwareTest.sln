@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H4SoftwareTest", "H4SoftwareTest\H4SoftwareTest.csproj", "{B85A4996-4658-43BF-8629-7407EE5272A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H4SoftwareTestTestProject", "H4SoftwareTestTestProject\H4SoftwareTestTestProject.csproj", "{A6CAD460-DC25-4AE5-8146-31F45AF5DDFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H4SoftwareTestTestProject", "H4SoftwareTestTestProject\H4SoftwareTestTestProject.csproj", "{A6CAD460-DC25-4AE5-8146-31F45AF5DDFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

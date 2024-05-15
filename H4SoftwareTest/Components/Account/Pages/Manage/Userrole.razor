@@ -1,0 +1,119 @@
+﻿@page "/Account/Manage/Userrole"
+
+@using System.ComponentModel.DataAnnotations
+@using System.Text
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.WebUtilities
+@using H4SoftwareTest.Data
+@using H4SoftwareTest.Codes
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject RoleHandler RoleHandler
+@inject NavigationManager NavigationManager
+@inject IServiceProvider ServiceProvider
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Manage user role</PageTitle>
+
+<h3>Manage user role</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <p>Current Role: @currentRole</p>
+        </div>
+
+        <form @formname="adminForm" style="display: inline-block" @onsubmit="UpdateUserRoleToAdmin" method="post">
+            <AntiforgeryToken />
+            <button type="submit" class="btn btn-primary">Assign Admin role</button>
+        </form>
+
+        <form @formname="userForm" style="display: inline-block" @onsubmit="UpdateUserRoleToUser" method="post">
+            <AntiforgeryToken />
+            <button type="submit" class="btn btn-primary">Assign User role</button>
+        </form>
+    </div>
+</div>
+<p>@statusMessage</p>
+
+@code {
+    private string? statusMessage;
+    private string currentUserEmail;
+    private string currentRole = "Not assigned";
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("OnInitializedAsync started");
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            currentUserEmail = user.Identity.Name;
+            Console.WriteLine($"User is authenticated: {currentUserEmail}");
+            await GetCurrentUserRole();
+        }
+        else
+        {
+            Console.WriteLine("User is not authenticated, redirecting to home");
+            NavigationManager.NavigateTo("/");
+        }
+    }
+
+    private async Task GetCurrentUserRole()
+    {
+        var user = await UserManager.FindByEmailAsync(currentUserEmail);
+        if (user != null)
+        {
+            var roles = await UserManager.GetRolesAsync(user);
+            currentRole = roles.FirstOrDefault() ?? "Not assigned";
+        }
+    }
+
+    private async Task UpdateUserRoleToAdmin()
+    {
+        await UpdateUserRole("Admin");
+        Console.WriteLine("Admin role button clicked");
+    }
+
+    private async Task UpdateUserRoleToUser()
+    {
+        await UpdateUserRole("User");
+        Console.WriteLine("User role button clicked");
+    }
+
+    private async Task UpdateUserRole(string role)
+    {
+        if (currentUserEmail == null)
+        {
+            statusMessage = "Error: User email is not available.";
+            Console.WriteLine(statusMessage);
+            return;
+        }
+
+        Console.WriteLine($"Updating user role to {role}");
+        statusMessage = null;
+        var result = await RoleHandler.CreateUserRolesAsync(currentUserEmail, role, ServiceProvider);
+        if (result)
+        {
+            statusMessage = $"User role updated to {role}.";
+            Console.WriteLine(statusMessage);
+            await GetCurrentUserRole();
+
+            // Genindlæs login session
+            var user = await UserManager.FindByEmailAsync(currentUserEmail);
+            if (user != null)
+            {
+                await SignInManager.RefreshSignInAsync(user);
+                Console.WriteLine("Sign-in session refreshed.");
+            }
+        }
+        else
+        {
+            statusMessage = $"Failed to update user role to {role}.";
+            Console.WriteLine(statusMessage);
+        }
+    }
+}

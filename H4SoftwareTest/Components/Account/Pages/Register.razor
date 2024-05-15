@@ -28,18 +28,18 @@
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
+                <InputText id="Input_Email" @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label for="Input_Email">Email</label>
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
             </div>
             <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Password</label>
+                <InputText id="Input_Password" type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label for="Input_Password">Password</label>
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
             </div>
             <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
+                <InputText id="Input_ConfirmPassword" type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label for="Input_ConfirmPassword">Confirm Password</label>
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
             </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
