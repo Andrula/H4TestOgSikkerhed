@@ -65,5 +65,20 @@ namespace H4SoftwareTestTestProject
             Assert.False(homeObj._isAdmin);
             Assert.True(homeObj._isAuthenticated);
         }
+        
+        [Fact]
+        public void CheckMarkup_HomeComponent_OnAdminUser()
+        {
+            //Arange
+            var ctx = new TestContext();
+            var authContext = ctx.AddTestAuthorization();
+            authContext.SetRoles("Admin");
+
+            //Act
+            var cut = ctx.RenderComponent<Home>();
+
+            //Assert
+            cut.MarkupMatches("<h1>Hello, world!</h1>\r\n<h2>You are admin</h2>\r\n<br />");
+        }
     }
 }

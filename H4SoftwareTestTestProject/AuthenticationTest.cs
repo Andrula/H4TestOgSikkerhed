@@ -19,9 +19,23 @@ namespace H4SoftwareTestTestProject;
 
 public class AuthenticationTest
 {
-    // Denne metode tester hvis et objekt er authenticated og der forventes true.
     [Fact]
-    public void CheckIfUserIsAuthenticated()
+    public void CheckMarkup_HomeComponent_OnAuthenticatedUser()
+    {
+        //Arange
+        var ctx = new TestContext();
+        var authContext = ctx.AddTestAuthorization();
+        authContext.SetAuthorized("");
+
+        //Act
+        var cut = ctx.RenderComponent<Home>();
+
+        //Assert
+        cut.MarkupMatches("<h1>Hello, world!</h1>\r\n<h2>You are NOT admin</h2>\r\n<br />");
+    }
+
+    [Fact]
+    public void CheckCode_HomeComponent_OnAuthenticatedUser()
     {
         //Arange
         var ctx = new TestContext();
@@ -36,9 +50,22 @@ public class AuthenticationTest
         Assert.True(homeObj._isAuthenticated);
     }
 
-    // Denne metode tester hvis et objekt er authenticated og der forventes false.
     [Fact]
-    public void CheckIfUserIsNotAuthenticated()
+    public void CheckMarkup_HomeComponent_OnNotAuthenticatedUser()
+    {
+        //Arange
+        var ctx = new TestContext();
+        var authContext = ctx.AddTestAuthorization();
+
+        //Act
+        var cut = ctx.RenderComponent<Home>();
+
+        //Assert
+        cut.MarkupMatches("<div>\r\n  <h1>You must log in to see the content.</h1>\r\n</div>\r\n<br>");
+    }
+
+    [Fact]
+    public void CheckCode_HomeComponent_OnNotAuthenticatedUser()
     {
         //Arange
         var ctx = new TestContext();
